@@ -3,532 +3,111 @@
 <head>
   <base target="_top">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <title>Silsilah Trah</title>
+  
+  <!-- Favicon Pohon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌳</text></svg>">
+  
+  <!-- Font Script untuk Maturnuwun -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --bg:#f8fafc;
-      --panel:#ffffff;
-      --card:#ffffff;
-      --text:#0f172a;
-      --muted:#64748b;
-      --border:#e2e8f0;
-      --primary:#2563eb;
-      --primary-dark:#1d4ed8;
-      --danger:#dc2626;
-      --success:#16a34a;
-      --warning:#f59e0b;
-      --shadow:0 14px 40px rgba(15,23,42,.08);
-      --radius:18px;
+      --bg:#f8fafc; --panel:#ffffff; --card:#ffffff; --text:#0f172a;
+      --muted:#64748b; --border:#e2e8f0; --primary:#2563eb; --primary-dark:#1d4ed8;
+      --danger:#dc2626; --success:#16a34a; --warning:#f59e0b;
+      --shadow:0 14px 40px rgba(15,23,42,.08); --radius:18px;
     }
-
     *{ box-sizing:border-box; }
-
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      background:linear-gradient(135deg,#eff6ff,#f8fafc 45%,#fdf2f8);
-      color:var(--text);
-      min-height:100vh;
-    }
-
+    body{ margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:linear-gradient(135deg,#eff6ff,#f8fafc 45%,#fdf2f8); color:var(--text); min-height:100vh; }
     button, input, select, textarea{ font:inherit; }
-
-    .app{
-      display:grid;
-      grid-template-columns:260px 1fr;
-      min-height:100vh;
-    }
-
-    .sidebar{
-      background:#0f172a;
-      color:white;
-      padding:20px;
-      position:sticky;
-      top:0;
-      height:100vh;
-      overflow:auto;
-    }
-
-    .brand{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      margin-bottom:24px;
-    }
-
-    .brand-logo{
-      width:44px;
-      height:44px;
-      border-radius:16px;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(135deg,#2563eb,#7c3aed);
-      font-size:24px;
-      box-shadow:0 12px 30px rgba(37,99,235,.35);
-    }
-
+    .app{ display:grid; grid-template-columns:260px 1fr; min-height:100vh; }
+    .sidebar{ background:#0f172a; color:white; padding:20px; position:sticky; top:0; height:100vh; overflow:auto; }
+    .brand{ display:flex; gap:12px; align-items:center; margin-bottom:24px; }
+    .brand-logo{ width:44px; height:44px; border-radius:16px; display:grid; place-items:center; background:linear-gradient(135deg,#2563eb,#7c3aed); font-size:24px; box-shadow:0 12px 30px rgba(37,99,235,.35); }
     .brand h1{ margin:0; font-size:18px; line-height:1.2; }
     .brand p{ margin:4px 0 0; color:#94a3b8; font-size:12px; }
-
     .nav{ display:grid; gap:8px; }
-
-    .nav button{
-      width:100%;
-      border:0;
-      border-radius:14px;
-      padding:12px 14px;
-      text-align:left;
-      cursor:pointer;
-      background:transparent;
-      color:#cbd5e1;
-      transition:.2s;
-      font-weight:700;
-    }
-
-    .nav button:hover, .nav button.active{
-      background:rgba(255,255,255,.1);
-      color:white;
-    }
-
+    .nav button{ width:100%; border:0; border-radius:14px; padding:12px 14px; text-align:left; cursor:pointer; background:transparent; color:#cbd5e1; transition:.2s; font-weight:700; }
+    .nav button:hover, .nav button.active{ background:rgba(255,255,255,.1); color:white; }
     .main{ padding:24px; overflow:auto; }
-
-    .topbar{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:center;
-      margin-bottom:20px;
-    }
-
+    .topbar{ display:flex; justify-content:space-between; gap:12px; align-items:center; margin-bottom:20px; }
     .topbar h2{ margin:0; font-size:24px; }
     .topbar p{ margin:4px 0 0; color:var(--muted); font-size:13px; }
-
     .grid{ display:grid; gap:16px; }
     .grid-2{ grid-template-columns:1fr 1fr; }
-    .grid-3{ grid-template-columns:repeat(3,1fr); }
     .grid-6{ grid-template-columns:repeat(6,1fr); }
-
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:18px;
-    }
-
-    .stat{
-      min-height:112px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-    }
-
+    .card{ background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; }
+    .stat{ min-height:112px; display:flex; flex-direction:column; justify-content:space-between; }
     .stat .label{ color:var(--muted); font-size:13px; font-weight:700; }
     .stat .value{ font-size:30px; font-weight:900; margin-top:10px; }
-
-    .toolbar{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:14px;
-    }
-
+    .toolbar{ display:flex; gap:10px; flex-wrap:wrap; justify-content:space-between; align-items:center; margin-bottom:14px; }
     .search-wrap{ display:flex; gap:8px; flex:1; min-width:240px; }
-
-    input, select, textarea{
-      width:100%;
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:11px 12px;
-      background:white;
-      outline:none;
-      color:var(--text);
-      font-size:14px;
-    }
-
-    input:focus, select:focus, textarea:focus{
-      border-color:#93c5fd;
-      box-shadow:0 0 0 4px rgba(37,99,235,.12);
-    }
-
+    input, select, textarea{ width:100%; border:1px solid var(--border); border-radius:12px; padding:11px 12px; background:white; outline:none; color:var(--text); font-size:14px; }
+    input:focus, select:focus, textarea:focus{ border-color:#93c5fd; box-shadow:0 0 0 4px rgba(37,99,235,.12); }
     textarea{ min-height:88px; resize:vertical; }
-
-    .btn{
-      border:0;
-      border-radius:12px;
-      padding:11px 14px;
-      cursor:pointer;
-      font-weight:800;
-      background:#e2e8f0;
-      color:#0f172a;
-      transition:.2s;
-      white-space:nowrap;
-    }
-
+    .btn{ border:0; border-radius:12px; padding:11px 14px; cursor:pointer; font-weight:800; background:#e2e8f0; color:#0f172a; transition:.2s; white-space:nowrap; }
     .btn:hover{ transform:translateY(-1px); }
     .btn-primary{ background:var(--primary); color:white; }
     .btn-primary:hover{ background:var(--primary-dark); }
     .btn-danger{ background:#fee2e2; color:var(--danger); }
     .btn-success{ background:#dcfce7; color:var(--success); }
     .btn-warning{ background:#fef3c7; color:#92400e; }
-
-    .table-wrap{
-      width:100%;
-      overflow:auto;
-      border:1px solid var(--border);
-      border-radius:16px;
-    }
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      min-width:760px;
-      background:white;
-    }
-
-    th, td{
-      padding:12px;
-      border-bottom:1px solid var(--border);
-      text-align:left;
-      vertical-align:middle;
-      font-size:13px;
-    }
-
-    th{
-      background:#f8fafc;
-      color:#475569;
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.04em;
-    }
-
+    .table-wrap{ width:100%; overflow:auto; border:1px solid var(--border); border-radius:16px; }
+    table{ width:100%; border-collapse:collapse; min-width:760px; background:white; }
+    th, td{ padding:12px; border-bottom:1px solid var(--border); text-align:left; vertical-align:middle; font-size:13px; }
+    th{ background:#f8fafc; color:#475569; font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
     tr:hover td{ background:#f8fafc; }
-
-    .avatar{
-      width:42px;
-      height:42px;
-      border-radius:14px;
-      object-fit:cover;
-      background:#dbeafe;
-      display:grid;
-      place-items:center;
-      font-weight:900;
-      color:#1d4ed8;
-      overflow:hidden;
-      flex:none;
-    }
-
+    .avatar{ width:42px; height:42px; border-radius:14px; object-fit:cover; background:#dbeafe; display:grid; place-items:center; font-weight:900; color:#1d4ed8; overflow:hidden; flex:none; }
     .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
-
     .person-cell{ display:flex; gap:10px; align-items:center; }
     .person-name{ font-weight:900; }
     .person-sub{ font-size:12px; color:var(--muted); margin-top:2px; }
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:999px;
-      padding:5px 9px;
-      font-size:12px;
-      font-weight:900;
-      background:#e2e8f0;
-      color:#334155;
-    }
-
+    .pill{ display:inline-flex; align-items:center; justify-content:center; border-radius:999px; padding:5px 9px; font-size:12px; font-weight:900; background:#e2e8f0; color:#334155; }
     .pill-blue{ background:#dbeafe; color:#1d4ed8; }
     .pill-pink{ background:#fce7f3; color:#be185d; }
     .pill-red{ background:#fee2e2; color:#b91c1c; }
-
     .view{ display:none; }
     .view.active{ display:block; }
-
     .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
     .field{ display:grid; gap:6px; }
     .field label{ font-size:12px; color:#475569; font-weight:900; }
     .full{ grid-column:1 / -1; }
-
-    .modal-backdrop{
-      position:fixed;
-      inset:0;
-      background:rgba(15,23,42,.55);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
-      z-index:1000;
-    }
-
+    .modal-backdrop{ position:fixed; inset:0; background:rgba(15,23,42,.55); display:none; align-items:center; justify-content:center; padding:16px; z-index:1000; }
     .modal-backdrop.show{ display:flex; }
-
-    .modal{
-      width:min(780px,100%);
-      max-height:90vh;
-      overflow:auto;
-      background:white;
-      border-radius:24px;
-      box-shadow:0 30px 80px rgba(15,23,42,.3);
-      border:1px solid var(--border);
-    }
-
-    .modal-head{
-      padding:18px;
-      border-bottom:1px solid var(--border);
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:center;
-      position:sticky;
-      top:0;
-      background:white;
-      z-index:2;
-    }
-
+    .modal{ width:min(780px,100%); max-height:90vh; overflow:auto; background:white; border-radius:24px; box-shadow:0 30px 80px rgba(15,23,42,.3); border:1px solid var(--border); }
+    .modal-head{ padding:18px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; gap:12px; align-items:center; position:sticky; top:0; background:white; z-index:2; }
     .modal-head h3{ margin:0; }
     .modal-body{ padding:18px; }
-
-    .modal-foot{
-      padding:18px;
-      border-top:1px solid var(--border);
-      display:flex;
-      gap:10px;
-      justify-content:flex-end;
-      background:#f8fafc;
-      position:sticky;
-      bottom:0;
-    }
-
-    .detail-head{ display:flex; gap:16px; align-items:center; margin-bottom:16px; }
-    .detail-head .avatar{ width:84px; height:84px; border-radius:24px; font-size:28px; }
-    .detail-head h3{ margin:0; font-size:24px; }
-    .detail-head p{ margin:6px 0 0; color:var(--muted); }
-
-    .relation-list{ display:grid; gap:10px; }
-
-    .relation-item{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      padding:10px;
-      border:1px solid var(--border);
-      border-radius:14px;
-      background:#f8fafc;
-    }
-
-    .tree-area{
-      overflow:auto;
-      padding:20px;
-      background:linear-gradient(135deg,#f8fafc,#eff6ff);
-      border-radius:18px;
-      border:1px dashed #cbd5e1;
-      min-height:380px;
-    }
-
-    .tree-level{
-      display:flex;
-      justify-content:center;
-      gap:14px;
-      flex-wrap:wrap;
-      margin:18px 0;
-      position:relative;
-    }
-
-    .tree-label{
-      text-align:center;
-      font-weight:900;
-      color:#64748b;
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      margin-top:20px;
-    }
-
-    .tree-card{
-      width:170px;
-      background:white;
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:12px;
-      box-shadow:0 10px 28px rgba(15,23,42,.08);
-      text-align:center;
-      cursor:pointer;
-      transition:.2s;
-    }
-
-    .tree-card:hover{ transform:translateY(-2px); border-color:#93c5fd; }
-    .tree-card .avatar{ width:58px; height:58px; margin:0 auto 8px; border-radius:18px; }
-    .tree-name{ font-weight:900; font-size:14px; }
-    .tree-sub{ font-size:12px; color:var(--muted); margin-top:4px; }
-
-    .tree-line{ width:2px; height:24px; background:#cbd5e1; margin:0 auto; }
-
+    .modal-foot{ padding:18px; border-top:1px solid var(--border); display:flex; gap:10px; justify-content:flex-end; background:#f8fafc; position:sticky; bottom:0; }
     .empty{ padding:30px; text-align:center; color:var(--muted); }
-
-    /* ===== TOAST TENGAH LAYAR ===== */
-    .toast-backdrop{
-      position:fixed;
-      inset:0;
-      background:rgba(15,23,42,.45);
-      backdrop-filter:blur(2px);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index:1999;
-      animation:fadeIn .2s ease-out;
-    }
-
+    
+    /* TOAST TENGAH LAYAR */
+    .toast-backdrop{ position:fixed; inset:0; background:rgba(15,23,42,.45); backdrop-filter:blur(2px); display:none; align-items:center; justify-content:center; z-index:1999; animation:fadeIn .2s ease-out; }
     .toast-backdrop.show{ display:flex; }
+    .toast{ position:relative; background:#0f172a; color:white; padding:22px 28px; border-radius:20px; box-shadow:0 25px 70px rgba(15,23,42,.45), 0 0 0 1px rgba(255,255,255,.08) inset; font-weight:800; font-size:15px; line-height:1.5; max-width:480px; text-align:center; animation:popIn .28s cubic-bezier(.2,.9,.3,1.2); }
+    .toast.error{ background:linear-gradient(135deg,#991b1b,#7f1d1d); box-shadow:0 25px 70px rgba(153,27,27,.5), 0 0 0 1px rgba(255,255,255,.1) inset; }
+    .toast.success{ background:linear-gradient(135deg,#166534,#14532d); box-shadow:0 25px 70px rgba(22,101,52,.5), 0 0 0 1px rgba(255,255,255,.1) inset; }
+    .toast-icon{ font-size:32px; display:block; margin-bottom:8px; }
+    @keyframes fadeIn{ from{opacity:0} to{opacity:1} }
+    @keyframes popIn{ from{ opacity:0; transform:scale(.85) translateY(10px); } to{ opacity:1; transform:scale(1) translateY(0); } }
 
-    .toast{
-      position:relative;
-      background:#0f172a;
-      color:white;
-      padding:22px 28px;
-      border-radius:20px;
-      box-shadow:0 25px 70px rgba(15,23,42,.45), 0 0 0 1px rgba(255,255,255,.08) inset;
-      font-weight:800;
-      font-size:15px;
-      line-height:1.5;
-      max-width:480px;
-      text-align:center;
-      animation:popIn .28s cubic-bezier(.2,.9,.3,1.2);
-    }
-
-    .toast.error{
-      background:linear-gradient(135deg,#991b1b,#7f1d1d);
-      box-shadow:0 25px 70px rgba(153,27,27,.5), 0 0 0 1px rgba(255,255,255,.1) inset;
-    }
-
-    .toast.success{
-      background:linear-gradient(135deg,#166534,#14532d);
-      box-shadow:0 25px 70px rgba(22,101,52,.5), 0 0 0 1px rgba(255,255,255,.1) inset;
-    }
-
-    .toast-icon{
-      font-size:32px;
-      display:block;
-      margin-bottom:8px;
-    }
-
-    @keyframes fadeIn{
-      from{opacity:0}
-      to{opacity:1}
-    }
-
-    @keyframes popIn{
-      from{ opacity:0; transform:scale(.85) translateY(10px); }
-      to{ opacity:1; transform:scale(1) translateY(0); }
-    }
+    /* ABOUT MODAL STYLES */
+    .font-script { font-family: 'Dancing Script', cursive; font-size: 36px; color: var(--primary); font-weight: 700; margin-top: 24px; }
+    .modal-shine { position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); pointer-events: none; z-index: 100; }
+    .modal-backdrop.show .modal-shine { animation: shine-sweep 1.2s ease-out forwards; }
+    @keyframes shine-sweep { 0% { left: -100%; } 100% { left: 200%; } }
+    .about-logo { width: 80px; height: 80px; border-radius: 24px; display: grid; place-items: center; background: linear-gradient(135deg, #2563eb, #7c3aed); font-size: 40px; box-shadow: 0 12px 30px rgba(37,99,235,.35); margin: 0 auto 16px; }
 
     .mobile-toggle{ display:none; }
-
     @media(max-width:900px){
       .app{ grid-template-columns:1fr; }
-
-      .sidebar{
-        position:fixed;
-        z-index:900;
-        inset:0 auto 0 0;
-        width:280px;
-        transform:translateX(-100%);
-        transition:.2s;
-      }
-
+      .sidebar{ position:fixed; z-index:900; inset:0 auto 0 0; width:280px; transform:translateX(-100%); transition:.2s; }
       .sidebar.show{ transform:translateX(0); }
       .mobile-toggle{ display:inline-flex; }
       .main{ padding:16px; }
-
-      .grid-2, .grid-3, .grid-6{ grid-template-columns:1fr; }
-      .topbar{ align-items:flex-start; }
-      .form-grid{ grid-template-columns:1fr; }
-
-      input, select, textarea{ font-size:16px; }
+      .grid-2, .grid-6{ grid-template-columns:1fr; }
     }
-
-    .photo-upload-box{
-      display:flex;
-      gap:14px;
-      align-items:flex-start;
-      padding:12px;
-      border:1px dashed var(--border);
-      border-radius:16px;
-      background:#f8fafc;
-    }
-
-    .photo-preview{
-      width:92px;
-      height:92px;
-      border-radius:22px;
-      background:#dbeafe;
-      color:#1d4ed8;
-      display:grid;
-      place-items:center;
-      font-weight:900;
-      overflow:hidden;
-      flex:none;
-      border:1px solid #bfdbfe;
-    }
-
-    .photo-preview img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .photo-help{ margin-top:6px; font-size:12px; color:var(--muted); line-height:1.5; }
-
-    @media(max-width:600px){
-      .photo-upload-box{ flex-direction:column; }
-      .photo-preview{ width:120px; height:120px; }
-    }
-
-    .btn:disabled{ opacity:.65; cursor:not-allowed; transform:none; }
-    .btn:disabled:hover{ transform:none; }
-	
-	
-	/* Font Script untuk Maturnuwun */
-.font-script {
-  font-family: 'Dancing Script', cursive;
-  font-size: 36px;
-  color: var(--primary);
-  font-weight: 700;
-  margin-top: 24px;
-}
-
-/* Efek Cahaya Melintas (Shine Effect) */
-.modal-shine {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
-  transform: skewX(-25deg);
-  pointer-events: none;
-  z-index: 100;
-}
-
-.modal-backdrop.show .modal-shine {
-  animation: shine-sweep 1.2s ease-out forwards;
-}
-
-@keyframes shine-sweep {
-  0% { left: -100%; }
-  100% { left: 200%; }
-}
-
-/* Styling khusus modal About */
-.about-logo {
-  width: 80px;
-  height: 80px;
-  border-radius: 24px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
-  font-size: 40px;
-  box-shadow: 0 12px 30px rgba(37,99,235,.35);
-  margin: 0 auto 16px;
-}
-	
   </style>
 </head>
 
@@ -542,13 +121,12 @@
           <p>- Ver Beta -</p>
         </div>
       </div>
-
       <div class="nav">
         <button class="active" data-view="dashboard" onclick="openView('dashboard')">🏠 Dashboard</button>
         <button data-view="anggota" onclick="openView('anggota')">👨‍👩‍👧‍👦 Data Anggota</button>
         <button data-view="tree" onclick="openView('tree')">🌳 Pohon Keluarga</button>
-      <button onclick="openAboutModal()">ℹ️ Tentang Aplikasi</button>
-	</div>
+        <button onclick="openAboutModal()">ℹ️ Tentang Aplikasi</button>
+      </div>
     </aside>
 
     <main class="main">
@@ -571,13 +149,9 @@
           <div class="card stat"><div class="label">Wafat</div><div class="value" id="statWafat">0</div></div>
           <div class="card stat"><div class="label">Relasi</div><div class="value" id="statRelasi">0</div></div>
         </div>
-
         <div class="card" style="margin-top:16px">
           <h3 style="margin-top:0">Panduan Cepat</h3>
-          <p style="color:var(--muted);line-height:1.7">
-            Mulai dengan menambahkan anggota keluarga, lalu buat relasi ayah, ibu, atau pasangan.
-            Setelah relasi dibuat, pohon keluarga akan tersusun otomatis di menu Pohon Keluarga.
-          </p>
+          <p style="color:var(--muted);line-height:1.7">Mulai dengan menambahkan anggota keluarga, lalu buat relasi ayah, ibu, atau pasangan. Setelah relasi dibuat, pohon keluarga akan tersusun otomatis di menu Pohon Keluarga.</p>
         </div>
       </section>
 
@@ -591,22 +165,10 @@
             </div>
             <button class="btn btn-primary" onclick="openAnggotaModal()">+ Tambah Anggota</button>
           </div>
-
           <div class="table-wrap">
             <table>
-              <thead>
-                <tr>
-                  <th>Anggota</th>
-                  <th>Gender</th>
-                  <th>Lahir</th>
-                  <th>Status</th>
-                  <th>Alamat</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody id="anggotaBody">
-                <tr><td colspan="6" class="empty">Memuat data...</td></tr>
-              </tbody>
+              <thead><tr><th>Anggota</th><th>Gender</th><th>Lahir</th><th>Status</th><th>Alamat</th><th>Aksi</th></tr></thead>
+              <tbody id="anggotaBody"><tr><td colspan="6" class="empty">Memuat data...</td></tr></tbody>
             </table>
           </div>
         </div>
@@ -617,16 +179,11 @@
         <div class="card">
           <div class="toolbar">
             <div class="search-wrap">
-              <select id="treeRootSelect" onchange="loadTree()">
-                <option value="">Pilih anggota utama</option>
-              </select>
+              <select id="treeRootSelect" onchange="loadTree()"><option value="">Pilih anggota utama</option></select>
             </div>
             <button class="btn" onclick="loadTree()">Refresh Pohon</button>
           </div>
-
-          <div class="tree-area" id="treeArea">
-            <div class="empty">Pilih anggota utama untuk melihat pohon keluarga.</div>
-          </div>
+          <div class="tree-area" id="treeArea"><div class="empty">Pilih anggota utama untuk melihat pohon keluarga.</div></div>
         </div>
       </section>
     </main>
@@ -635,83 +192,33 @@
   <!-- MODAL ANGGOTA -->
   <div class="modal-backdrop" id="anggotaModal">
     <div class="modal">
-      <div class="modal-head">
-        <h3 id="anggotaModalTitle">Tambah Anggota</h3>
-        <button class="btn" onclick="closeModal('anggotaModal')">Tutup</button>
-      </div>
-
+      <div class="modal-head"><h3 id="anggotaModalTitle">Tambah Anggota</h3><button class="btn" onclick="closeModal('anggotaModal')">Tutup</button></div>
       <div class="modal-body">
         <input type="hidden" id="f_ID_ANGGOTA">
-
         <div class="form-grid">
-          <div class="field full">
-            <label>Nama Lengkap</label>
-            <input id="f_NAMA" placeholder="Contoh: Sutejo">
-          </div>
-
-          <div class="field">
-            <label>Jenis Kelamin</label>
-            <select id="f_JENIS_KELAMIN">
-              <option value="LAKI-LAKI">Laki-laki</option>
-              <option value="PEREMPUAN">Perempuan</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label>Status</label>
-            <select id="f_STATUS_HIDUP">
-              <option value="HIDUP">Hidup</option>
-              <option value="WAFAT">Wafat</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label>Tempat Lahir</label>
-            <input id="f_TEMPAT_LAHIR" placeholder="Contoh: Yogyakarta">
-          </div>
-
-          <div class="field">
-            <label>Tanggal Lahir</label>
-            <input id="f_TANGGAL_LAHIR" type="date">
-          </div>
-
-          <div class="field">
-            <label>Tanggal Wafat</label>
-            <input id="f_TANGGAL_WAFAT" type="date">
-          </div>
-
-          <div class="field">
-            <label>No HP</label>
-            <input id="f_NO_HP" placeholder="Opsional">
-          </div>
-
+          <div class="field full"><label>Nama Lengkap</label><input id="f_NAMA" placeholder="Contoh: Sutejo"></div>
+          <div class="field"><label>Jenis Kelamin</label><select id="f_JENIS_KELAMIN"><option value="LAKI-LAKI">Laki-laki</option><option value="PEREMPUAN">Perempuan</option></select></div>
+          <div class="field"><label>Status</label><select id="f_STATUS_HIDUP"><option value="HIDUP">Hidup</option><option value="WAFAT">Wafat</option></select></div>
+          <div class="field"><label>Tempat Lahir</label><input id="f_TEMPAT_LAHIR" placeholder="Contoh: Yogyakarta"></div>
+          <div class="field"><label>Tanggal Lahir</label><input id="f_TANGGAL_LAHIR" type="date"></div>
+          <div class="field"><label>Tanggal Wafat</label><input id="f_TANGGAL_WAFAT" type="date"></div>
+          <div class="field"><label>No HP</label><input id="f_NO_HP" placeholder="Opsional"></div>
           <div class="field full">
             <label>Foto Anggota</label>
-            <div class="photo-upload-box">
-              <div class="photo-preview" id="photoPreview"><span>Foto</span></div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:12px;border:1px dashed var(--border);border-radius:16px;background:#f8fafc;">
+              <div class="photo-preview" id="photoPreview" style="width:92px;height:92px;border-radius:22px;background:#dbeafe;color:#1d4ed8;display:grid;place-items:center;font-weight:900;overflow:hidden;flex:none;border:1px solid #bfdbfe;"><span>Foto</span></div>
               <div style="flex:1">
                 <input id="f_FOTO_FILE" type="file" accept="image/*" onchange="handlePhotoFile(this)">
                 <input id="f_FOTO_URL" type="hidden">
-                <div class="photo-help">Pilih foto dari perangkat. Foto akan otomatis diperkecil agar aman disimpan.</div>
-                <div style="margin-top:8px">
-                  <button type="button" class="btn btn-danger" onclick="clearPhoto()">Hapus Foto</button>
-                </div>
+                <div style="margin-top:6px;font-size:12px;color:var(--muted);line-height:1.5;">Pilih foto dari perangkat. Foto akan otomatis diperkecil agar aman disimpan.</div>
+                <div style="margin-top:8px"><button type="button" class="btn btn-danger" onclick="clearPhoto()">Hapus Foto</button></div>
               </div>
             </div>
           </div>
-
-          <div class="field full">
-            <label>Alamat</label>
-            <textarea id="f_ALAMAT" placeholder="Alamat anggota keluarga"></textarea>
-          </div>
-
-          <div class="field full">
-            <label>Catatan / Riwayat Singkat</label>
-            <textarea id="f_CATATAN" placeholder="Contoh: Anak pertama dari keluarga besar..."></textarea>
-          </div>
+          <div class="field full"><label>Alamat</label><textarea id="f_ALAMAT" placeholder="Alamat anggota keluarga"></textarea></div>
+          <div class="field full"><label>Catatan / Riwayat Singkat</label><textarea id="f_CATATAN" placeholder="Contoh: Anak pertama dari keluarga besar..."></textarea></div>
         </div>
       </div>
-
       <div class="modal-foot">
         <button class="btn" onclick="closeModal('anggotaModal')">Batal</button>
         <button class="btn btn-primary" id="btnSaveAnggota" onclick="saveAnggota()">Simpan</button>
@@ -722,10 +229,7 @@
   <!-- MODAL DETAIL -->
   <div class="modal-backdrop" id="detailModal">
     <div class="modal">
-      <div class="modal-head">
-        <h3>Detail Anggota</h3>
-        <button class="btn" onclick="closeModal('detailModal')">Tutup</button>
-      </div>
+      <div class="modal-head"><h3>Detail Anggota</h3><button class="btn" onclick="closeModal('detailModal')">Tutup</button></div>
       <div class="modal-body" id="detailBody">Memuat detail...</div>
       <div class="modal-foot">
         <button class="btn btn-warning" id="btnRelasiDetail">+ Tambah Relasi</button>
@@ -737,44 +241,16 @@
   <!-- MODAL RELASI -->
   <div class="modal-backdrop" id="relasiModal">
     <div class="modal">
-      <div class="modal-head">
-        <h3>Tambah Relasi Keluarga</h3>
-        <button class="btn" onclick="closeModal('relasiModal')">Tutup</button>
-      </div>
-
+      <div class="modal-head"><h3>Tambah Relasi Keluarga</h3><button class="btn" onclick="closeModal('relasiModal')">Tutup</button></div>
       <div class="modal-body">
         <div class="form-grid">
-          <div class="field">
-            <label>Anggota Pertama</label>
-            <select id="r_ID_DARI"></select>
-          </div>
-
-          <div class="field">
-            <label>Jenis Relasi</label>
-            <select id="r_JENIS_RELASI">
-              <option value="AYAH">Ayah dari</option>
-              <option value="IBU">Ibu dari</option>
-              <option value="PASANGAN">Pasangan dari</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label>Anggota Kedua</label>
-            <select id="r_ID_KE"></select>
-          </div>
-
-          <div class="field">
-            <label>Keterangan</label>
-            <input id="r_KETERANGAN" placeholder="Opsional">
-          </div>
+          <div class="field"><label>Anggota Pertama</label><select id="r_ID_DARI"></select></div>
+          <div class="field"><label>Jenis Relasi</label><select id="r_JENIS_RELASI"><option value="AYAH">Ayah dari</option><option value="IBU">Ibu dari</option><option value="PASANGAN">Pasangan dari</option></select></div>
+          <div class="field"><label>Anggota Kedua</label><select id="r_ID_KE"></select></div>
+          <div class="field"><label>Keterangan</label><input id="r_KETERANGAN" placeholder="Opsional"></div>
         </div>
-
-        <p style="color:var(--muted);font-size:13px;line-height:1.6">
-          Contoh: pilih <b>Sutejo</b>, relasi <b>Ayah dari</b>, lalu pilih <b>Budi</b>.
-          Artinya Sutejo adalah ayah dari Budi.
-        </p>
+        <p style="color:var(--muted);font-size:13px;line-height:1.6">Contoh: pilih <b>Sutejo</b>, relasi <b>Ayah dari</b>, lalu pilih <b>Budi</b>. Artinya Sutejo adalah ayah dari Budi.</p>
       </div>
-
       <div class="modal-foot">
         <button class="btn" onclick="closeModal('relasiModal')">Batal</button>
         <button class="btn btn-primary" id="btnSaveRelasi" onclick="saveRelasi()">Simpan Relasi</button>
@@ -782,769 +258,357 @@
     </div>
   </div>
 
-  <!-- TOAST TENGAH LAYAR -->
+  <!-- MODAL ABOUT / INFORMASI -->
+  <div class="modal-backdrop" id="aboutModal">
+    <div class="modal" style="max-width: 520px; text-align: center; position: relative; overflow: hidden;">
+      <div class="modal-shine"></div>
+      <div class="modal-head" style="justify-content: center; border-bottom: 1px solid var(--border); position: relative;">
+        <h3 style="margin: 0;">Informasi</h3>
+        <button class="btn" style="position: absolute; right: 18px; top: 18px; padding: 8px 12px;" onclick="closeAboutModal()">Tutup</button>
+      </div>
+      <div class="modal-body" style="padding: 24px;">
+        <div class="about-logo">🌳</div>
+        <h2 style="margin: 0; font-size: 28px; font-weight: 900; color: var(--text);">Silsilah TRAH</h2>
+        <p style="margin: 8px 0 20px; font-size: 18px; color: var(--muted); font-weight: 600;">Trah Prawirorejo</p>
+        <p style="line-height: 1.8; color: var(--text); font-size: 15px; margin-bottom: 8px;">
+          Aplikasi ini bertujuan untuk membuat pohon trah/keluarga. Guna menjaga tali silaturahmi, kekeluargaan dan berbagi informasi yang bermanfaat.
+        </p>
+        <div style="height: 24px;"></div>
+        <p style="font-size: 14px; color: var(--muted); line-height: 1.6;">
+          Tahap pengembangan.<br>
+          Saran & kritik yang membangun silahkan WA ke 
+          <a href="https://wa.me/6288806667171" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; color: #25D366; font-weight: 800; text-decoration: none; vertical-align: middle; margin-top: 4px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.506-.669-.514-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.084 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+            0888-0666-7171
+          </a>
+        </p>
+        <p class="font-script">Maturnuwun</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
   <div class="toast-backdrop" id="toastBackdrop"></div>
   <div class="toast" id="toast"></div>
 
   <script>
-    let state = {
-      anggota: [],
-      currentDetailId: null,
-      searchTimer: null,
-      toastTimer: null
-    };
-
-    // =====================================================================
-    // GANTI URL DI BAWAH INI dengan URL Web App Apps Script Anda
-    // (Deploy > New deployment > Web app), yang berakhiran "/exec"
-    // =====================================================================
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxIzWEnFusf67ic5yVLFPx9fHfyHgnpHziaivxSnIPAHT6W7oByksRW6Ajqw8oLjlPIjw/exec;
+    let state = { anggota: [], currentDetailId: null, searchTimer: null, toastTimer: null };
 
     document.addEventListener('DOMContentLoaded', initApp);
 
-    function initApp(){
-      loadDashboard();
-      loadAnggota();
-    }
+    function initApp(){ loadDashboard(); loadAnggota(); }
 
+    // --- FUNGSI KOMUNIKASI BACKEND (GANTI DENGAN LOGIKA FETCH/HTTP ANDA DI SINI) ---
     function gs(fn, args){
-      return fetch(API_URL, {
-        method: 'POST',
-        // Sengaja pakai text/plain (bukan application/json) supaya browser
-        // tidak mengirim CORS preflight (OPTIONS) yang tidak didukung Apps Script.
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ fn: fn, args: args || [] })
-      })
-        .then(res => {
-          if(!res.ok) throw new Error('HTTP ' + res.status);
-          return res.json();
-        })
-        .catch(err => {
-          throw new Error('Gagal menghubungi server: ' + err.message);
-        });
+      return new Promise((resolve, reject) => {
+        // Jika Anda menggunakan fetch HTTP, ganti logika di dalam sini.
+        // Contoh dasar google.script.run (jika dijalankan di Apps Script):
+        if(typeof google !== 'undefined' && google.script && google.script.run){
+          google.script.run.withSuccessHandler(resolve).withFailureHandler(reject)[fn].apply(google.script.run, args || []);
+        } else {
+          // Fallback jika dibuka di GitHub Pages tanpa backend fetch yang dikonfigurasi
+          reject(new Error('Backend tidak terhubung. Pastikan URL API sudah dikonfigurasi.'));
+        }
+      });
     }
+    // ---------------------------------------------------------------------------------
 
     function openView(view){
       document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav button').forEach(el => el.classList.remove('active'));
-
       document.getElementById('view-' + view).classList.add('active');
-
       const btn = document.querySelector(`.nav button[data-view="${view}"]`);
       if(btn) btn.classList.add('active');
-
-      const titles = {
-        dashboard: ['Dashboard', 'Ringkasan data keluarga'],
-        anggota: ['Data Anggota', 'Kelola anggota keluarga'],
-        tree: ['Pohon Keluarga', 'Visualisasi relasi keluarga']
-      };
-
+      const titles = { dashboard: ['Dashboard', 'Ringkasan data keluarga'], anggota: ['Data Anggota', 'Kelola anggota keluarga'], tree: ['Pohon Keluarga', 'Visualisasi relasi keluarga'] };
       document.getElementById('pageTitle').textContent = titles[view][0];
       document.getElementById('pageSubtitle').textContent = titles[view][1];
-
       if(view === 'dashboard') loadDashboard();
       if(view === 'anggota') loadAnggota();
-      if(view === 'tree'){
-        fillAnggotaOptions();
-        loadTree();
-      }
-
+      if(view === 'tree'){ fillAnggotaOptions(); loadTree(); }
       closeSidebar();
     }
 
-    function toggleSidebar(){
-      document.getElementById('sidebar').classList.toggle('show');
-    }
-
-    function closeSidebar(){
-      document.getElementById('sidebar').classList.remove('show');
-    }
+    function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('show'); }
+    function closeSidebar(){ document.getElementById('sidebar').classList.remove('show'); }
 
     async function loadDashboard(){
       try{
         const res = await gs('apiGetDashboard');
         if(!res.ok){ toast(res.message, 'error'); return; }
-
         const d = res.data;
-        setText('statTotal', d.total);
-        setText('statLaki', d.laki);
-        setText('statPerempuan', d.perempuan);
-        setText('statHidup', d.hidup);
-        setText('statWafat', d.wafat);
-        setText('statRelasi', d.totalRelasi);
-
-      }catch(err){
-        toast('Gagal memuat dashboard: ' + err.message, 'error');
-      }
+        setText('statTotal', d.total); setText('statLaki', d.laki); setText('statPerempuan', d.perempuan);
+        setText('statHidup', d.hidup); setText('statWafat', d.wafat); setText('statRelasi', d.totalRelasi);
+      }catch(err){ toast('Gagal memuat dashboard: ' + err.message, 'error'); }
     }
 
     async function loadAnggota(){
       const tbody = document.getElementById('anggotaBody');
       tbody.innerHTML = `<tr><td colspan="6" class="empty">Memuat data...</td></tr>`;
-
       try{
         const q = document.getElementById('searchAnggota').value || '';
         const res = await gs('apiListAnggota', [{ q }]);
-
         if(!res.ok){ toast(res.message, 'error'); return; }
-
         state.anggota = res.data || [];
-        renderAnggotaTable();
-        fillAnggotaOptions();
-
+        renderAnggotaTable(); fillAnggotaOptions();
       }catch(err){
-        tbody.innerHTML = `<tr><td colspan="6" class="empty">Gagal memuat data</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="empty">Gagal memuat data. Periksa koneksi backend.</td></tr>`;
         toast('Gagal memuat anggota: ' + err.message, 'error');
       }
     }
 
-    function debouncedLoadAnggota(){
-      clearTimeout(state.searchTimer);
-      state.searchTimer = setTimeout(loadAnggota, 350);
-    }
+    function debouncedLoadAnggota(){ clearTimeout(state.searchTimer); state.searchTimer = setTimeout(loadAnggota, 350); }
 
     function renderAnggotaTable(){
       const tbody = document.getElementById('anggotaBody');
-
-      if(!state.anggota.length){
-        tbody.innerHTML = `<tr><td colspan="6" class="empty">Belum ada data anggota</td></tr>`;
-        return;
-      }
-
+      if(!state.anggota.length){ tbody.innerHTML = `<tr><td colspan="6" class="empty">Belum ada data anggota</td></tr>`; return; }
       tbody.innerHTML = state.anggota.map(a => {
         const genderClass = a.JENIS_KELAMIN === 'PEREMPUAN' ? 'pill-pink' : 'pill-blue';
         const statusClass = a.STATUS_HIDUP === 'WAFAT' ? 'pill-red' : 'pill-blue';
-
-        return `
-          <tr>
-            <td>
-              <div class="person-cell">
-                ${avatarHtml(a)}
-                <div>
-                  <div class="person-name">${esc(a.NAMA)}</div>
-                  <div class="person-sub">${esc(a.ID_ANGGOTA)}</div>
-                </div>
-              </div>
-            </td>
-            <td><span class="pill ${genderClass}">${esc(a.JENIS_KELAMIN || '-')}</span></td>
-            <td>
-              <div>${esc(a.TEMPAT_LAHIR || '-')}</div>
-              <div class="person-sub">${esc(a.TANGGAL_LAHIR || '')}</div>
-            </td>
-            <td><span class="pill ${statusClass}">${esc(a.STATUS_HIDUP || '-')}</span></td>
-            <td>${esc(a.ALAMAT || '-')}</td>
-            <td>
-              <button class="btn" onclick="openDetail('${a.ID_ANGGOTA}')">Detail</button>
-              <button class="btn btn-warning" onclick="openRelasiModal('${a.ID_ANGGOTA}')">Relasi</button>
-              <button class="btn btn-primary" onclick="openAnggotaModal('${a.ID_ANGGOTA}')">Edit</button>
-              <button class="btn btn-danger" onclick="deleteAnggota('${a.ID_ANGGOTA}')">Hapus</button>
-            </td>
-          </tr>
-        `;
+        return `<tr>
+          <td><div class="person-cell">${avatarHtml(a)}<div><div class="person-name">${esc(a.NAMA)}</div><div class="person-sub">${esc(a.ID_ANGGOTA)}</div></div></div></td>
+          <td><span class="pill ${genderClass}">${esc(a.JENIS_KELAMIN || '-')}</span></td>
+          <td><div>${esc(a.TEMPAT_LAHIR || '-')}</div><div class="person-sub">${esc(a.TANGGAL_LAHIR || '')}</div></td>
+          <td><span class="pill ${statusClass}">${esc(a.STATUS_HIDUP || '-')}</span></td>
+          <td>${esc(a.ALAMAT || '-')}</td>
+          <td>
+            <button class="btn" onclick="openDetail('${a.ID_ANGGOTA}')">Detail</button>
+            <button class="btn btn-warning" onclick="openRelasiModal('${a.ID_ANGGOTA}')">Relasi</button>
+            <button class="btn btn-primary" onclick="openAnggotaModal('${a.ID_ANGGOTA}')">Edit</button>
+            <button class="btn btn-danger" onclick="deleteAnggota('${a.ID_ANGGOTA}')">Hapus</button>
+          </td>
+        </tr>`;
       }).join('');
     }
 
     function openAnggotaModal(id){
       resetAnggotaForm();
-
       if(id){
         const a = state.anggota.find(x => x.ID_ANGGOTA === id);
         if(a){
-          setVal('f_ID_ANGGOTA', a.ID_ANGGOTA);
-          setVal('f_NAMA', a.NAMA);
-          setVal('f_JENIS_KELAMIN', a.JENIS_KELAMIN);
-          setVal('f_TEMPAT_LAHIR', a.TEMPAT_LAHIR);
-          setVal('f_TANGGAL_LAHIR', a.TANGGAL_LAHIR);
-          setVal('f_TANGGAL_WAFAT', a.TANGGAL_WAFAT);
-          setVal('f_STATUS_HIDUP', a.STATUS_HIDUP);
-          setVal('f_ALAMAT', a.ALAMAT);
-          setVal('f_NO_HP', a.NO_HP);
-          setVal('f_FOTO_URL', a.FOTO_URL);
-          renderPhotoPreview(a.FOTO_URL);
-          setVal('f_CATATAN', a.CATATAN);
+          setVal('f_ID_ANGGOTA', a.ID_ANGGOTA); setVal('f_NAMA', a.NAMA); setVal('f_JENIS_KELAMIN', a.JENIS_KELAMIN);
+          setVal('f_TEMPAT_LAHIR', a.TEMPAT_LAHIR); setVal('f_TANGGAL_LAHIR', a.TANGGAL_LAHIR); setVal('f_TANGGAL_WAFAT', a.TANGGAL_WAFAT);
+          setVal('f_STATUS_HIDUP', a.STATUS_HIDUP); setVal('f_ALAMAT', a.ALAMAT); setVal('f_NO_HP', a.NO_HP);
+          setVal('f_FOTO_URL', a.FOTO_URL); renderPhotoPreview(a.FOTO_URL); setVal('f_CATATAN', a.CATATAN);
           document.getElementById('anggotaModalTitle').textContent = 'Edit Anggota';
         }
-      }else{
-        document.getElementById('anggotaModalTitle').textContent = 'Tambah Anggota';
-      }
-
+      }else{ document.getElementById('anggotaModalTitle').textContent = 'Tambah Anggota'; }
       showModal('anggotaModal');
     }
 
     function resetAnggotaForm(){
-      ['f_ID_ANGGOTA','f_NAMA','f_TEMPAT_LAHIR','f_TANGGAL_LAHIR','f_TANGGAL_WAFAT','f_ALAMAT','f_NO_HP','f_FOTO_URL','f_CATATAN']
-        .forEach(id => setVal(id, ''));
-
-      const fileInput = document.getElementById('f_FOTO_FILE');
-      if(fileInput) fileInput.value = '';
-
-      renderPhotoPreview('');
-      setVal('f_JENIS_KELAMIN', 'LAKI-LAKI');
-      setVal('f_STATUS_HIDUP', 'HIDUP');
+      ['f_ID_ANGGOTA','f_NAMA','f_TEMPAT_LAHIR','f_TANGGAL_LAHIR','f_TANGGAL_WAFAT','f_ALAMAT','f_NO_HP','f_FOTO_URL','f_CATATAN'].forEach(id => setVal(id, ''));
+      const fileInput = document.getElementById('f_FOTO_FILE'); if(fileInput) fileInput.value = '';
+      renderPhotoPreview(''); setVal('f_JENIS_KELAMIN', 'LAKI-LAKI'); setVal('f_STATUS_HIDUP', 'HIDUP');
     }
 
     async function saveAnggota(){
-      const btn = document.getElementById('btnSaveAnggota');
-      if(btn && btn.disabled) return;
-
-      const payload = {
-        ID_ANGGOTA: val('f_ID_ANGGOTA'),
-        NAMA: val('f_NAMA'),
-        JENIS_KELAMIN: val('f_JENIS_KELAMIN'),
-        TEMPAT_LAHIR: val('f_TEMPAT_LAHIR'),
-        TANGGAL_LAHIR: val('f_TANGGAL_LAHIR'),
-        TANGGAL_WAFAT: val('f_TANGGAL_WAFAT'),
-        STATUS_HIDUP: val('f_STATUS_HIDUP'),
-        ALAMAT: val('f_ALAMAT'),
-        NO_HP: val('f_NO_HP'),
-        FOTO_URL: val('f_FOTO_URL'),
-        CATATAN: val('f_CATATAN')
-      };
-
+      const btn = document.getElementById('btnSaveAnggota'); if(btn && btn.disabled) return;
+      const payload = { ID_ANGGOTA: val('f_ID_ANGGOTA'), NAMA: val('f_NAMA'), JENIS_KELAMIN: val('f_JENIS_KELAMIN'), TEMPAT_LAHIR: val('f_TEMPAT_LAHIR'), TANGGAL_LAHIR: val('f_TANGGAL_LAHIR'), TANGGAL_WAFAT: val('f_TANGGAL_WAFAT'), STATUS_HIDUP: val('f_STATUS_HIDUP'), ALAMAT: val('f_ALAMAT'), NO_HP: val('f_NO_HP'), FOTO_URL: val('f_FOTO_URL'), CATATAN: val('f_CATATAN') };
       if(!payload.NAMA){ toast('Nama wajib diisi', 'error'); return; }
-
       setButtonLoading('btnSaveAnggota', true, 'Menyimpan...', 'Simpan');
-
       try{
         const res = await gs('apiSaveAnggota', [payload]);
         if(!res.ok){ toast(res.message, 'error'); return; }
-
-        toast(res.message, 'success');
-        closeModal('anggotaModal');
-        await loadAnggota();
-        await loadDashboard();
-
-      }catch(err){
-        toast('Gagal simpan: ' + err.message, 'error');
-      }finally{
-        setButtonLoading('btnSaveAnggota', false, 'Menyimpan...', 'Simpan');
-      }
+        toast(res.message, 'success'); closeModal('anggotaModal'); await loadAnggota(); await loadDashboard();
+      }catch(err){ toast('Gagal simpan: ' + err.message, 'error'); }
+      finally{ setButtonLoading('btnSaveAnggota', false, 'Menyimpan...', 'Simpan'); }
     }
 
     async function deleteAnggota(id){
-      const a = state.anggota.find(x => x.ID_ANGGOTA === id);
-      const name = a ? a.NAMA : id;
-
+      const a = state.anggota.find(x => x.ID_ANGGOTA === id); const name = a ? a.NAMA : id;
       if(!confirm(`Hapus anggota "${name}"?\n\nSemua relasi terkait juga akan dihapus.`)) return;
-
       try{
         const res = await gs('apiDeleteAnggota', [id]);
         if(!res.ok){ toast(res.message, 'error'); return; }
-
-        toast(res.message, 'success');
-        await loadAnggota();
-        await loadDashboard();
-
-      }catch(err){
-        toast('Gagal hapus: ' + err.message, 'error');
-      }
+        toast(res.message, 'success'); await loadAnggota(); await loadDashboard();
+      }catch(err){ toast('Gagal hapus: ' + err.message, 'error'); }
     }
 
     async function openDetail(id){
-      state.currentDetailId = id;
-      showModal('detailModal');
-      document.getElementById('detailBody').innerHTML = 'Memuat detail...';
-
+      state.currentDetailId = id; showModal('detailModal'); document.getElementById('detailBody').innerHTML = 'Memuat detail...';
       try{
         const res = await gs('apiGetAnggotaDetail', [id]);
-        if(!res.ok){
-          document.getElementById('detailBody').innerHTML = `<div class="empty">${esc(res.message)}</div>`;
-          return;
-        }
+        if(!res.ok){ document.getElementById('detailBody').innerHTML = `<div class="empty">${esc(res.message)}</div>`; return; }
         renderDetail(res.data);
-      }catch(err){
-        document.getElementById('detailBody').innerHTML = `<div class="empty">Gagal memuat detail</div>`;
-      }
+      }catch(err){ document.getElementById('detailBody').innerHTML = `<div class="empty">Gagal memuat detail</div>`; }
     }
 
     function renderDetail(d){
       const a = d.anggota;
-
-      document.getElementById('btnEditDetail').onclick = () => {
-        closeModal('detailModal');
-        openAnggotaModal(a.ID_ANGGOTA);
-      };
-
-      document.getElementById('btnRelasiDetail').onclick = () => {
-        closeModal('detailModal');
-        openRelasiModal(a.ID_ANGGOTA);
-      };
-
+      document.getElementById('btnEditDetail').onclick = () => { closeModal('detailModal'); openAnggotaModal(a.ID_ANGGOTA); };
+      document.getElementById('btnRelasiDetail').onclick = () => { closeModal('detailModal'); openRelasiModal(a.ID_ANGGOTA); };
       document.getElementById('detailBody').innerHTML = `
-        <div class="detail-head">
-          ${avatarHtml(a)}
-          <div>
-            <h3>${esc(a.NAMA)}</h3>
-            <p>${esc(a.ID_ANGGOTA)} · ${esc(a.JENIS_KELAMIN || '-')} · ${esc(a.STATUS_HIDUP || '-')}</p>
-          </div>
-        </div>
-
+        <div class="detail-head">${avatarHtml(a)}<div><h3>${esc(a.NAMA)}</h3><p>${esc(a.ID_ANGGOTA)} · ${esc(a.JENIS_KELAMIN || '-')} · ${esc(a.STATUS_HIDUP || '-')}</p></div></div>
         <div class="grid grid-2">
-          <div class="card" style="box-shadow:none">
-            <b>Tempat/Tanggal Lahir</b>
-            <p style="color:var(--muted)">${esc(a.TEMPAT_LAHIR || '-')} ${a.TANGGAL_LAHIR ? ', ' + esc(a.TANGGAL_LAHIR) : ''}</p>
-          </div>
-
-          <div class="card" style="box-shadow:none">
-            <b>No HP</b>
-            <p style="color:var(--muted)">${esc(a.NO_HP || '-')}</p>
-          </div>
-
-          <div class="card full" style="box-shadow:none">
-            <b>Alamat</b>
-            <p style="color:var(--muted)">${esc(a.ALAMAT || '-')}</p>
-          </div>
-
-          <div class="card full" style="box-shadow:none">
-            <b>Catatan</b>
-            <p style="color:var(--muted);line-height:1.6">${esc(a.CATATAN || '-')}</p>
-          </div>
+          <div class="card" style="box-shadow:none"><b>Tempat/Tanggal Lahir</b><p style="color:var(--muted)">${esc(a.TEMPAT_LAHIR || '-')} ${a.TANGGAL_LAHIR ? ', ' + esc(a.TANGGAL_LAHIR) : ''}</p></div>
+          <div class="card" style="box-shadow:none"><b>No HP</b><p style="color:var(--muted)">${esc(a.NO_HP || '-')}</p></div>
+          <div class="card full" style="box-shadow:none"><b>Alamat</b><p style="color:var(--muted)">${esc(a.ALAMAT || '-')}</p></div>
+          <div class="card full" style="box-shadow:none"><b>Catatan</b><p style="color:var(--muted);line-height:1.6">${esc(a.CATATAN || '-')}</p></div>
         </div>
-
         <h3>Relasi Keluarga</h3>
-
         <div class="grid grid-2">
           ${relationBlock('Ayah', d.ayah ? [d.ayah] : [])}
           ${relationBlock('Ibu', d.ibu ? [d.ibu] : [])}
           ${relationBlock('Pasangan', d.pasangan || [])}
           ${relationBlock('Anak', d.anak || [])}
-        </div>
-      `;
+        </div>`;
     }
 
     function relationBlock(title, rows){
-      return `
-        <div class="card" style="box-shadow:none">
-          <b>${esc(title)}</b>
-          <div class="relation-list" style="margin-top:10px">
-            ${
-              rows.length
-                ? rows.map(x => `
-                    <div class="relation-item" onclick="openDetail('${x.ID_ANGGOTA}')" style="cursor:pointer">
-                      ${avatarHtml(x)}
-                      <div>
-                        <div class="person-name">${esc(x.NAMA)}</div>
-                        <div class="person-sub">${esc(x.ID_ANGGOTA)}</div>
-                      </div>
-                    </div>
-                  `).join('')
-                : `<div style="color:var(--muted);font-size:13px">Belum ada data</div>`
-            }
-          </div>
-        </div>
-      `;
+      return `<div class="card" style="box-shadow:none"><b>${esc(title)}</b><div class="relation-list" style="margin-top:10px">
+        ${rows.length ? rows.map(x => `<div class="relation-item" onclick="openDetail('${x.ID_ANGGOTA}')" style="cursor:pointer">${avatarHtml(x)}<div><div class="person-name">${esc(x.NAMA)}</div><div class="person-sub">${esc(x.ID_ANGGOTA)}</div></div></div>`).join('') : `<div style="color:var(--muted);font-size:13px">Belum ada data</div>`}
+      </div></div>`;
     }
 
     function openRelasiModal(defaultId){
-      fillAnggotaOptions();
-      setVal('r_ID_DARI', defaultId || '');
-      setVal('r_JENIS_RELASI', 'AYAH');
-
-      const other = state.anggota.find(x => x.ID_ANGGOTA !== defaultId);
-      setVal('r_ID_KE', other ? other.ID_ANGGOTA : '');
-
+      fillAnggotaOptions(); setVal('r_ID_DARI', defaultId || ''); setVal('r_JENIS_RELASI', 'AYAH');
+      const other = state.anggota.find(x => x.ID_ANGGOTA !== defaultId); setVal('r_ID_KE', other ? other.ID_ANGGOTA : '');
       showModal('relasiModal');
     }
 
     async function saveRelasi(){
-      const btn = document.getElementById('btnSaveRelasi');
-      if(btn && btn.disabled) return;
-
-      const payload = {
-        ID_DARI: val('r_ID_DARI'),
-        ID_KE: val('r_ID_KE'),
-        JENIS_RELASI: val('r_JENIS_RELASI'),
-        KETERANGAN: val('r_KETERANGAN')
-      };
-
+      const btn = document.getElementById('btnSaveRelasi'); if(btn && btn.disabled) return;
+      const payload = { ID_DARI: val('r_ID_DARI'), ID_KE: val('r_ID_KE'), JENIS_RELASI: val('r_JENIS_RELASI'), KETERANGAN: val('r_KETERANGAN') };
       if(!payload.ID_DARI || !payload.ID_KE){ toast('Pilih anggota relasi terlebih dahulu', 'error'); return; }
       if(payload.ID_DARI === payload.ID_KE){ toast('Relasi tidak boleh ke anggota yang sama', 'error'); return; }
-
       setButtonLoading('btnSaveRelasi', true, 'Menyimpan...', 'Simpan Relasi');
-
       try{
         const res = await gs('apiSaveRelasi', [payload]);
         if(!res.ok){ toast(res.message, 'error'); return; }
-
-        toast(res.message, 'success');
-        closeModal('relasiModal');
-        await loadDashboard();
-        await loadTree();
-
-      }catch(err){
-        toast('Gagal simpan relasi: ' + err.message, 'error');
-      }finally{
-        setButtonLoading('btnSaveRelasi', false, 'Menyimpan...', 'Simpan Relasi');
-      }
+        toast(res.message, 'success'); closeModal('relasiModal'); await loadDashboard(); await loadTree();
+      }catch(err){ toast('Gagal simpan relasi: ' + err.message, 'error'); }
+      finally{ setButtonLoading('btnSaveRelasi', false, 'Menyimpan...', 'Simpan Relasi'); }
     }
 
     function fillAnggotaOptions(){
-      const options = `<option value="">Pilih anggota</option>` + state.anggota.map(a => {
-        return `<option value="${escAttr(a.ID_ANGGOTA)}">${esc(a.NAMA)} - ${esc(a.ID_ANGGOTA)}</option>`;
-      }).join('');
-
+      const options = `<option value="">Pilih anggota</option>` + state.anggota.map(a => `<option value="${escAttr(a.ID_ANGGOTA)}">${esc(a.NAMA)} - ${esc(a.ID_ANGGOTA)}</option>`).join('');
       ['r_ID_DARI','r_ID_KE','treeRootSelect'].forEach(id => {
-        const el = document.getElementById(id);
-        if(!el) return;
-        const old = el.value;
-        el.innerHTML = options;
-        if(old) el.value = old;
+        const el = document.getElementById(id); if(!el) return; const old = el.value; el.innerHTML = options; if(old) el.value = old;
       });
-
       const treeSelect = document.getElementById('treeRootSelect');
-      if(treeSelect && !treeSelect.value && state.anggota[0]){
-        treeSelect.value = state.anggota[0].ID_ANGGOTA;
-      }
+      if(treeSelect && !treeSelect.value && state.anggota[0]){ treeSelect.value = state.anggota[0].ID_ANGGOTA; }
     }
 
     async function loadTree(){
       const rootId = val('treeRootSelect');
-
-      if(!rootId){
-        document.getElementById('treeArea').innerHTML = `<div class="empty">Pilih anggota utama untuk melihat pohon keluarga.</div>`;
-        return;
-      }
-
+      if(!rootId){ document.getElementById('treeArea').innerHTML = `<div class="empty">Pilih anggota utama untuk melihat pohon keluarga.</div>`; return; }
       document.getElementById('treeArea').innerHTML = `<div class="empty">Memuat pohon keluarga...</div>`;
-
       try{
         const res = await gs('apiGetFamilyTree', [rootId]);
-        if(!res.ok){
-          document.getElementById('treeArea').innerHTML = `<div class="empty">${esc(res.message)}</div>`;
-          return;
-        }
+        if(!res.ok){ document.getElementById('treeArea').innerHTML = `<div class="empty">${esc(res.message)}</div>`; return; }
         renderTree(res.data);
-      }catch(err){
-        document.getElementById('treeArea').innerHTML = `<div class="empty">Gagal memuat pohon keluarga</div>`;
-      }
+      }catch(err){ document.getElementById('treeArea').innerHTML = `<div class="empty">Gagal memuat pohon keluarga</div>`; }
     }
 
     function renderTree(d){
-      if(!d.root){
-        document.getElementById('treeArea').innerHTML = `<div class="empty">Belum ada data anggota.</div>`;
-        return;
-      }
-
+      if(!d.root){ document.getElementById('treeArea').innerHTML = `<div class="empty">Belum ada data anggota.</div>`; return; }
       const parents = [];
       if(d.parents && d.parents.ayah) parents.push(d.parents.ayah);
       if(d.parents && d.parents.ibu) parents.push(d.parents.ibu);
-
-      const partners = d.partners || [];
-      const children = d.children || [];
-      const grandchildren = d.grandchildren || [];
-
+      const partners = d.partners || []; const children = d.children || []; const grandchildren = d.grandchildren || [];
       document.getElementById('treeArea').innerHTML = `
-        <div class="tree-label">Orang Tua</div>
-        <div class="tree-level">
-          ${parents.length ? parents.map(treeCard).join('') : `<div class="empty">Orang tua belum diinput</div>`}
-        </div>
-
+        <div class="tree-label">Orang Tua</div><div class="tree-level">${parents.length ? parents.map(treeCard).join('') : `<div class="empty">Orang tua belum diinput</div>`}</div>
         <div class="tree-line"></div>
-
-        <div class="tree-label">Anggota Utama & Pasangan</div>
-        <div class="tree-level">
-          ${treeCard(d.root, true)}
-          ${partners.map(treeCard).join('')}
-        </div>
-
+        <div class="tree-label">Anggota Utama & Pasangan</div><div class="tree-level">${treeCard(d.root, true)}${partners.map(treeCard).join('')}</div>
         <div class="tree-line"></div>
-
-        <div class="tree-label">Anak</div>
-        <div class="tree-level">
-          ${children.length ? children.map(treeCard).join('') : `<div class="empty">Anak belum diinput</div>`}
-        </div>
-
+        <div class="tree-label">Anak</div><div class="tree-level">${children.length ? children.map(treeCard).join('') : `<div class="empty">Anak belum diinput</div>`}</div>
         <div class="tree-line"></div>
-
-        <div class="tree-label">Cucu</div>
-        <div class="tree-level">
-          ${
-            grandchildren.length
-              ? grandchildren.map(x => treeCard(x.child)).join('')
-              : `<div class="empty">Cucu belum diinput</div>`
-          }
-        </div>
-      `;
+        <div class="tree-label">Cucu</div><div class="tree-level">${grandchildren.length ? grandchildren.map(x => treeCard(x.child)).join('') : `<div class="empty">Cucu belum diinput</div>`}</div>`;
     }
 
-    function treeCard(a, active){
-      return `
-        <div class="tree-card" onclick="openDetail('${a.ID_ANGGOTA}')" style="${active ? 'border-color:#2563eb;box-shadow:0 12px 35px rgba(37,99,235,.18)' : ''}">
-          ${avatarHtml(a)}
-          <div class="tree-name">${esc(a.NAMA)}</div>
-          <div class="tree-sub">${esc(a.TANGGAL_LAHIR || a.ID_ANGGOTA)}</div>
-        </div>
-      `;
-    }
-
+    function treeCard(a, active){ return `<div class="tree-card" onclick="openDetail('${a.ID_ANGGOTA}')" style="${active ? 'border-color:#2563eb;box-shadow:0 12px 35px rgba(37,99,235,.18)' : ''}">${avatarHtml(a)}<div class="tree-name">${esc(a.NAMA)}</div><div class="tree-sub">${esc(a.TANGGAL_LAHIR || a.ID_ANGGOTA)}</div></div>`; }
     function avatarHtml(a){
-      const name = a && a.NAMA ? a.NAMA : '?';
-      const initial = name.trim().slice(0,1).toUpperCase();
-      const foto = a && a.FOTO_URL ? String(a.FOTO_URL).trim() : '';
-
-      if(foto){
-        return `
-          <div class="avatar">
-            <img src="${escAttr(foto)}" onerror="this.parentElement.textContent='${escAttr(initial)}'">
-          </div>
-        `;
-      }
-
+      const name = a && a.NAMA ? a.NAMA : '?'; const initial = name.trim().slice(0,1).toUpperCase(); const foto = a && a.FOTO_URL ? String(a.FOTO_URL).trim() : '';
+      if(foto){ return `<div class="avatar"><img src="${escAttr(foto)}" onerror="this.parentElement.textContent='${escAttr(initial)}'"></div>`; }
       return `<div class="avatar">${esc(initial)}</div>`;
     }
 
     function showModal(id){ document.getElementById(id).classList.add('show'); }
     function closeModal(id){ document.getElementById(id).classList.remove('show'); }
 
-    // ===== TOAST TENGAH LAYAR =====
     function toast(msg, type){
-      const el = document.getElementById('toast');
-      const backdrop = document.getElementById('toastBackdrop');
-      if(!el || !backdrop) return;
-
-      let icon = 'ℹ️';
-      if(type === 'error') icon = '⚠️';
-      if(type === 'success') icon = '✅';
-
-      el.innerHTML = `
-        <span class="toast-icon">${icon}</span>
-        <div>${esc(msg || '')}</div>
-      `;
-      el.className = 'toast show ' + (type || '');
-      backdrop.classList.add('show');
-
-      backdrop.onclick = hideToast;
-
-      clearTimeout(state.toastTimer);
-      state.toastTimer = setTimeout(hideToast, 3200);
+      const el = document.getElementById('toast'); const backdrop = document.getElementById('toastBackdrop'); if(!el || !backdrop) return;
+      let icon = 'ℹ️'; if(type === 'error') icon = '⚠️'; if(type === 'success') icon = '✅';
+      el.innerHTML = `<span class="toast-icon">${icon}</span><div>${esc(msg || '')}</div>`;
+      el.className = 'toast show ' + (type || ''); backdrop.classList.add('show');
+      backdrop.onclick = hideToast; clearTimeout(state.toastTimer); state.toastTimer = setTimeout(hideToast, 3200);
     }
-
     function hideToast(){
-      const el = document.getElementById('toast');
-      const backdrop = document.getElementById('toastBackdrop');
-      if(el) el.className = 'toast';
-      if(backdrop) backdrop.classList.remove('show');
+      const el = document.getElementById('toast'); const backdrop = document.getElementById('toastBackdrop');
+      if(el) el.className = 'toast'; if(backdrop) backdrop.classList.remove('show');
     }
 
-    function val(id){
-      const el = document.getElementById(id);
-      return el ? el.value.trim() : '';
-    }
-
-    function setVal(id, value){
-      const el = document.getElementById(id);
-      if(el) el.value = value || '';
-    }
-
-    function setText(id, value){
-      const el = document.getElementById(id);
-      if(el) el.textContent = value;
-    }
-
-    function esc(v){
-      return String(v === null || v === undefined ? '' : v)
-        .replaceAll('&','&amp;')
-        .replaceAll('<','&lt;')
-        .replaceAll('>','&gt;')
-        .replaceAll('"','&quot;')
-        .replaceAll("'","&#039;");
-    }
-
+    function val(id){ const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+    function setVal(id, value){ const el = document.getElementById(id); if(el) el.value = value || ''; }
+    function setText(id, value){ const el = document.getElementById(id); if(el) el.textContent = value; }
+    function esc(v){ return String(v === null || v === undefined ? '' : v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#039;"); }
     function escAttr(v){ return esc(v).replaceAll('`','&#096;'); }
 
     function handlePhotoFile(input){
-      const file = input.files && input.files[0];
-      if(!file) return;
-
-      if(!file.type.startsWith('image/')){
-        toast('File harus berupa gambar', 'error');
-        input.value = '';
-        return;
-      }
-
-      const maxFileMb = 5;
-      if(file.size > maxFileMb * 1024 * 1024){
-        toast('Ukuran foto maksimal ' + maxFileMb + ' MB', 'error');
-        input.value = '';
-        return;
-      }
-
-      resizeImageToDataUri(file, 500, 0.72)
-        .then(dataUri => {
-          setVal('f_FOTO_URL', dataUri);
-          renderPhotoPreview(dataUri);
-          toast('Foto berhasil dipilih', 'success');
-        })
-        .catch(err => {
-          toast('Gagal memproses foto: ' + err.message, 'error');
-          input.value = '';
-        });
+      const file = input.files && input.files[0]; if(!file) return;
+      if(!file.type.startsWith('image/')){ toast('File harus berupa gambar', 'error'); input.value = ''; return; }
+      if(file.size > 5 * 1024 * 1024){ toast('Ukuran foto maksimal 5 MB', 'error'); input.value = ''; return; }
+      resizeImageToDataUri(file, 500, 0.72).then(dataUri => { setVal('f_FOTO_URL', dataUri); renderPhotoPreview(dataUri); toast('Foto berhasil dipilih', 'success'); })
+      .catch(err => { toast('Gagal memproses foto: ' + err.message, 'error'); input.value = ''; });
     }
 
     function resizeImageToDataUri(file, maxSize, quality){
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
-
         reader.onload = e => {
           const img = new Image();
-
           img.onload = () => {
-            let width = img.width;
-            let height = img.height;
-
-            if(width > height){
-              if(width > maxSize){
-                height = Math.round(height * maxSize / width);
-                width = maxSize;
-              }
-            }else{
-              if(height > maxSize){
-                width = Math.round(width * maxSize / height);
-                height = maxSize;
-              }
-            }
-
-            const canvas = document.createElement('canvas');
-            canvas.width = width;
-            canvas.height = height;
-
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, width, height);
-
+            let width = img.width, height = img.height;
+            if(width > height){ if(width > maxSize){ height = Math.round(height * maxSize / width); width = maxSize; } }
+            else{ if(height > maxSize){ width = Math.round(width * maxSize / height); height = maxSize; } }
+            const canvas = document.createElement('canvas'); canvas.width = width; canvas.height = height;
+            const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, width, height);
             const dataUri = canvas.toDataURL('image/jpeg', quality);
-
-            if(dataUri.length > 45000){
-              reject(new Error('Foto masih terlalu besar. Coba pilih foto yang lebih kecil.'));
-              return;
-            }
-
+            if(dataUri.length > 45000){ reject(new Error('Foto masih terlalu besar. Coba pilih foto yang lebih kecil.')); return; }
             resolve(dataUri);
           };
-
-          img.onerror = () => reject(new Error('Gambar tidak valid'));
-          img.src = e.target.result;
+          img.onerror = () => reject(new Error('Gambar tidak valid')); img.src = e.target.result;
         };
-
-        reader.onerror = () => reject(new Error('File gagal dibaca'));
-        reader.readAsDataURL(file);
+        reader.onerror = () => reject(new Error('File gagal dibaca')); reader.readAsDataURL(file);
       });
     }
 
     function renderPhotoPreview(src){
-      const preview = document.getElementById('photoPreview');
-      if(!preview) return;
-
-      if(src){
-        preview.innerHTML = `<img src="${escAttr(src)}" onerror="this.parentElement.innerHTML='<span>Foto</span>'">`;
-      }else{
-        preview.innerHTML = `<span>Foto</span>`;
-      }
+      const preview = document.getElementById('photoPreview'); if(!preview) return;
+      if(src){ preview.innerHTML = `<img src="${escAttr(src)}" onerror="this.parentElement.innerHTML='<span>Foto</span>'">`; }
+      else{ preview.innerHTML = `<span>Foto</span>`; }
     }
-
-    function clearPhoto(){
-      setVal('f_FOTO_URL', '');
-      const fileInput = document.getElementById('f_FOTO_FILE');
-      if(fileInput) fileInput.value = '';
-      renderPhotoPreview('');
-    }
-
+    function clearPhoto(){ setVal('f_FOTO_URL', ''); const fileInput = document.getElementById('f_FOTO_FILE'); if(fileInput) fileInput.value = ''; renderPhotoPreview(''); }
     function setButtonLoading(buttonId, isLoading, loadingText, normalText){
-      const btn = document.getElementById(buttonId);
-      if(!btn) return;
-
-      btn.disabled = isLoading;
-      btn.textContent = isLoading ? loadingText : normalText;
-
-      if(isLoading){
-        btn.style.opacity = '.75';
-        btn.style.cursor = 'not-allowed';
-      }else{
-        btn.style.opacity = '';
-        btn.style.cursor = '';
-      }
+      const btn = document.getElementById(buttonId); if(!btn) return;
+      btn.disabled = isLoading; btn.textContent = isLoading ? loadingText : normalText;
+      btn.style.opacity = isLoading ? '.75' : ''; btn.style.cursor = isLoading ? 'not-allowed' : '';
     }
-	
+
     // ==========================================
     // FUNGSI MODAL ABOUT / INFORMASI
     // ==========================================
     function openAboutModal() {
       const modal = document.getElementById('aboutModal');
-      if (!modal) return; // Mencegah error jika elemen tidak ditemukan
-      
+      if (!modal) return;
       modal.classList.remove('show');
-      
-      // Trigger reflow untuk restart animasi CSS
-      void modal.offsetWidth; 
-      
+      void modal.offsetWidth; // Trigger reflow untuk restart animasi
       modal.classList.add('show');
     }
 
     function closeAboutModal() {
       const modal = document.getElementById('aboutModal');
-      if (modal) {
-        modal.classList.remove('show');
-      }
+      if (modal) modal.classList.remove('show');
     }
 
-    // Tutup modal jika area backdrop (luar kotak modal) diklik
     document.addEventListener('DOMContentLoaded', function() {
       const aboutModal = document.getElementById('aboutModal');
       if (aboutModal) {
         aboutModal.addEventListener('click', function(e) {
-          if (e.target === this) {
-            closeAboutModal();
-          }
+          if (e.target === this) closeAboutModal();
         });
       }
     });
-	
   </script>
-   <!-- MODAL ABOUT / INFORMASI -->
-<div class="modal-backdrop" id="aboutModal">
-  <div class="modal" style="max-width: 520px; text-align: center; position: relative; overflow: hidden;">
-    <!-- Efek Cahaya Melintas -->
-    <div class="modal-shine"></div>
-    
-    <div class="modal-head" style="justify-content: center; border-bottom: 1px solid var(--border); position: relative;">
-      <h3 style="margin: 0;">Informasi</h3>
-      <button class="btn" style="position: absolute; right: 0; top: 0; padding: 8px 12px;" onclick="closeAboutModal()">Tutup</button>
-    </div>
-
-    <div class="modal-body" style="padding: 24px;">
-      <!-- Logo Aplikasi -->
-      <div class="about-logo">🌳</div>
-      
-      <!-- Nama Aplikasi Besar -->
-      <h2 style="margin: 0; font-size: 28px; font-weight: 900; color: var(--text);">Silsilah TRAH</h2>
-      
-      <!-- Subjudul Lebih Kecil -->
-      <p style="margin: 8px 0 20px; font-size: 18px; color: var(--muted); font-weight: 600;">Trah Prawirorejo</p>
-      
-      <!-- Paragraf Deskripsi -->
-      <p style="line-height: 1.8; color: var(--text); font-size: 15px; margin-bottom: 8px;">
-        Aplikasi ini bertujuan untuk membuat pohon trah/keluarga. Guna menjaga tali silaturahmi, kekeluargaan dan berbagi informasi yang bermanfaat.
-      </p>
-      
-      <!-- 3 Spasi (Margin) -->
-      <div style="height: 24px;"></div>
-      
-      <!-- Info Tahap Pengembangan & WhatsApp -->
-      <p style="font-size: 14px; color: var(--muted); line-height: 1.6;">
-        Tahap pengembangan.<br>
-        Saran & kritik yang membangun silahkan WA ke 
-        <a href="https://wa.me/6288806667171" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; color: #25D366; font-weight: 800; text-decoration: none; vertical-align: middle; margin-top: 4px;">
-          <!-- Logo WhatsApp SVG -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#25D366">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.506-.669-.514-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.084 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-          </svg>
-          0888-0666-7171
-        </a>
-      </p>
-      
-      <!-- Tulisan Script Sambung -->
-      <p class="font-script">Maturnuwun</p>
-    </div>
-  </div>
-</div>
 </body>
 </html>

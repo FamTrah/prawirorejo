@@ -747,6 +747,12 @@
       toastTimer: null
     };
 
+    // =====================================================================
+    // GANTI URL DI BAWAH INI dengan URL Web App Apps Script Anda
+    // (Deploy > New deployment > Web app), yang berakhiran "/exec"
+    // =====================================================================
+    const API_URL = 'https://script.google.com/macros/s/AKfycbxIzWEnFusf67ic5yVLFPx9fHfyHgnpHziaivxSnIPAHT6W7oByksRW6Ajqw8oLjlPIjw/exec;
+
     document.addEventListener('DOMContentLoaded', initApp);
 
     function initApp(){
@@ -755,15 +761,20 @@
     }
 
     function gs(fn, args){
-      return new Promise((resolve, reject) => {
-        if(typeof google === 'undefined' || !google.script || !google.script.run){
-          reject(new Error('Aplikasi ini hanya bisa dijalankan di Google Apps Script. Silakan buka via Web App URL dari Apps Script, bukan dari Tiiny.site.'));
-          return;
-        }
-        google.script.run
-          .withSuccessHandler(resolve)
-          .withFailureHandler(err => reject(err))[fn].apply(google.script.run, args || []);
-      });
+      return fetch(API_URL, {
+        method: 'POST',
+        // Sengaja pakai text/plain (bukan application/json) supaya browser
+        // tidak mengirim CORS preflight (OPTIONS) yang tidak didukung Apps Script.
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ fn: fn, args: args || [] })
+      })
+        .then(res => {
+          if(!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .catch(err => {
+          throw new Error('Gagal menghubungi server: ' + err.message);
+        });
     }
 
     function openView(view){

@@ -86,6 +86,29 @@
     .toast-backdrop{ position:fixed; inset:0; background:rgba(15,23,42,.45); backdrop-filter:blur(2px); display:none; align-items:center; justify-content:center; z-index:1999; animation:fadeIn .2s ease-out; }
     .toast-backdrop.show{ display:flex; }
     .toast{ position:relative; background:#0f172a; color:white; padding:22px 28px; border-radius:20px; box-shadow:0 25px 70px rgba(15,23,42,.45), 0 0 0 1px rgba(255,255,255,.08) inset; font-weight:800; font-size:15px; line-height:1.5; max-width:480px; text-align:center; animation:popIn .28s cubic-bezier(.2,.9,.3,1.2); }
+	.toast{ position:relative; background:#0f172a; color:white; padding:22px 28px; border-radius:20px; box-shadow:0 25px 70px rgba(15,23,42,.45), 0 0 0 1px rgba(255,255,255,.08) inset; font-weight:800; font-size:15px; line-height:1.5; max-width:480px; text-align:center; animation:popIn .28s cubic-bezier(.2,.9,.3,1.2); overflow:hidden; z-index:2000; }
+
+.toast-shine{
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:60%;
+  height:100%;
+  background:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);
+  transform:skewX(-25deg);
+  pointer-events:none;
+  z-index:1;
+}
+
+.toast-backdrop.show .toast-shine{
+  animation:toast-shine-sweep 1.4s ease-out forwards;
+}
+
+@keyframes toast-shine-sweep{
+  0%{ left:-100%; }
+  100%{ left:200%; }
+}
+	
     .toast.error{ background:linear-gradient(135deg,#991b1b,#7f1d1d); box-shadow:0 25px 70px rgba(153,27,27,.5), 0 0 0 1px rgba(255,255,255,.1) inset; }
     .toast.success{ background:linear-gradient(135deg,#166534,#14532d); box-shadow:0 25px 70px rgba(22,101,52,.5), 0 0 0 1px rgba(255,255,255,.1) inset; }
     .toast-icon{ font-size:32px; display:block; margin-bottom:8px; }
@@ -288,8 +311,11 @@
   </div>
 
   <!-- TOAST -->
-  <div class="toast-backdrop" id="toastBackdrop"></div>
-  <div class="toast" id="toast"></div>
+<div class="toast-backdrop" id="toastBackdrop">
+  <div class="toast" id="toast">
+    <div class="toast-shine"></div>
+  </div>
+</div>
 
   <script>
     // ==========================================
@@ -548,13 +574,31 @@
     function showModal(id){ document.getElementById(id).classList.add('show'); }
     function closeModal(id){ document.getElementById(id).classList.remove('show'); }
 
-    function toast(msg, type){
-      const el = document.getElementById('toast'); const backdrop = document.getElementById('toastBackdrop'); if(!el || !backdrop) return;
-      let icon = 'ℹ️'; if(type === 'error') icon = '⚠️'; if(type === 'success') icon = '✅';
-      el.innerHTML = `<span class="toast-icon">${icon}</span><div>${esc(msg || '')}</div>`;
-      el.className = 'toast show ' + (type || ''); backdrop.classList.add('show');
-      backdrop.onclick = hideToast; clearTimeout(state.toastTimer); state.toastTimer = setTimeout(hideToast, 3200);
-    }
+function toast(msg, type){
+  const el = document.getElementById('toast'); 
+  const backdrop = document.getElementById('toastBackdrop'); 
+  if(!el || !backdrop) return;
+  
+  let icon = 'ℹ️'; 
+  if(type === 'error') icon = '⚠️'; 
+  if(type === 'success') icon = '✅';
+  
+  // Pertahankan elemen shine agar animasi bisa diputar ulang
+  el.innerHTML = `<div class="toast-shine"></div><span class="toast-icon">${icon}</span><div style="position:relative;z-index:2;">${esc(msg || '')}</div>`;
+  
+  // Reset class untuk memicu ulang animasi shine
+  backdrop.classList.remove('show');
+  void backdrop.offsetWidth; // Trigger reflow
+  
+  el.className = 'toast ' + (type || '');
+  backdrop.classList.add('show');
+  
+  backdrop.onclick = hideToast;
+  clearTimeout(state.toastTimer);
+  state.toastTimer = setTimeout(hideToast, 5000);
+}
+
+
     function hideToast(){
       const el = document.getElementById('toast'); const backdrop = document.getElementById('toastBackdrop');
       if(el) el.className = 'toast'; if(backdrop) backdrop.classList.remove('show');

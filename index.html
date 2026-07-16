@@ -3,7 +3,7 @@
 <head>
   <base target="_top">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <title>Silsilah Trah</title>
 
   <style>
@@ -483,6 +483,52 @@
 
     .btn:disabled{ opacity:.65; cursor:not-allowed; transform:none; }
     .btn:disabled:hover{ transform:none; }
+	
+	
+	/* Font Script untuk Maturnuwun */
+.font-script {
+  font-family: 'Dancing Script', cursive;
+  font-size: 36px;
+  color: var(--primary);
+  font-weight: 700;
+  margin-top: 24px;
+}
+
+/* Efek Cahaya Melintas (Shine Effect) */
+.modal-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-25deg);
+  pointer-events: none;
+  z-index: 100;
+}
+
+.modal-backdrop.show .modal-shine {
+  animation: shine-sweep 1.2s ease-out forwards;
+}
+
+@keyframes shine-sweep {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+/* Styling khusus modal About */
+.about-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 24px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  font-size: 40px;
+  box-shadow: 0 12px 30px rgba(37,99,235,.35);
+  margin: 0 auto 16px;
+}
+	
   </style>
 </head>
 
@@ -501,7 +547,8 @@
         <button class="active" data-view="dashboard" onclick="openView('dashboard')">🏠 Dashboard</button>
         <button data-view="anggota" onclick="openView('anggota')">👨‍👩‍👧‍👦 Data Anggota</button>
         <button data-view="tree" onclick="openView('tree')">🌳 Pohon Keluarga</button>
-      </div>
+      <button onclick="openAboutModal()">ℹ️ Tentang Aplikasi</button>
+	</div>
     </aside>
 
     <main class="main">
@@ -751,7 +798,7 @@
     // GANTI URL DI BAWAH INI dengan URL Web App Apps Script Anda
     // (Deploy > New deployment > Web app), yang berakhiran "/exec"
     // =====================================================================
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxIzWEnFusf67ic5yVLFPx9fHfyHgnpHziaivxSnIPAHT6W7oByksRW6Ajqw8oLjlPIjw/exec';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbxIzWEnFusf67ic5yVLFPx9fHfyHgnpHziaivxSnIPAHT6W7oByksRW6Ajqw8oLjlPIjw/exec;
 
     document.addEventListener('DOMContentLoaded', initApp);
 
@@ -1416,6 +1463,78 @@
         btn.style.cursor = '';
       }
     }
+	
+	function openAboutModal() {
+  // Reset animasi agar bisa diputar ulang setiap kali dibuka
+  const modal = document.getElementById('aboutModal');
+  modal.classList.remove('show');
+  
+  // Trigger reflow untuk restart animasi CSS
+  void modal.offsetWidth; 
+  
+  // Tampilkan modal
+  modal.classList.add('show');
+}
+
+function closeAboutModal() {
+  document.getElementById('aboutModal').classList.remove('show');
+}
+
+// Tutup modal jika area backdrop (luar modal) diklik
+document.getElementById('aboutModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeAboutModal();
+  }
+});
+	
+	
   </script>
+   <!-- MODAL ABOUT / INFORMASI -->
+<div class="modal-backdrop" id="aboutModal">
+  <div class="modal" style="max-width: 520px; text-align: center; position: relative; overflow: hidden;">
+    <!-- Efek Cahaya Melintas -->
+    <div class="modal-shine"></div>
+    
+    <div class="modal-head" style="justify-content: center; border-bottom: 1px solid var(--border); position: relative;">
+      <h3 style="margin: 0;">Informasi</h3>
+      <button class="btn" style="position: absolute; right: 0; top: 0; padding: 8px 12px;" onclick="closeAboutModal()">Tutup</button>
+    </div>
+
+    <div class="modal-body" style="padding: 24px;">
+      <!-- Logo Aplikasi -->
+      <div class="about-logo">🌳</div>
+      
+      <!-- Nama Aplikasi Besar -->
+      <h2 style="margin: 0; font-size: 28px; font-weight: 900; color: var(--text);">Silsilah TRAH</h2>
+      
+      <!-- Subjudul Lebih Kecil -->
+      <p style="margin: 8px 0 20px; font-size: 18px; color: var(--muted); font-weight: 600;">Trah Prawirorejo</p>
+      
+      <!-- Paragraf Deskripsi -->
+      <p style="line-height: 1.8; color: var(--text); font-size: 15px; margin-bottom: 8px;">
+        Aplikasi ini bertujuan untuk membuat pohon trah/keluarga. Guna menjaga tali silaturahmi, kekeluargaan dan berbagi informasi yang bermanfaat.
+      </p>
+      
+      <!-- 3 Spasi (Margin) -->
+      <div style="height: 24px;"></div>
+      
+      <!-- Info Tahap Pengembangan & WhatsApp -->
+      <p style="font-size: 14px; color: var(--muted); line-height: 1.6;">
+        Tahap pengembangan.<br>
+        Saran & kritik yang membangun silahkan WA ke 
+        <a href="https://wa.me/6288806667171" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; color: #25D366; font-weight: 800; text-decoration: none; vertical-align: middle; margin-top: 4px;">
+          <!-- Logo WhatsApp SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#25D366">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.506-.669-.514-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.084 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+          </svg>
+          0888-0666-7171
+        </a>
+      </p>
+      
+      <!-- Tulisan Script Sambung -->
+      <p class="font-script">Maturnuwun</p>
+    </div>
+  </div>
+</div>
 </body>
 </html>

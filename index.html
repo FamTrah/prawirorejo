@@ -292,29 +292,47 @@
   <div class="toast" id="toast"></div>
 
   <script>
-  
-  // GANTI URL INI DENGAN URL WEB APP ANDA YANG SEBENARNYA
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxIzWEnFusf67ic5yVLFPx9fHfyHgnpHziaivxSnIPAHT6W7oByksRW6Ajqw8oLjlPIjw/exec";
+    // ==========================================
+    // KONFIGURASI URL WEB APP (WAJIB DIISI)
+    // ==========================================
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxIzWEnFusf67ic5yVLFPx9fHfyHgnpHziaivxSnIPAHT6W7oByksRW6Ajqw8oLjlPIjw/exec";
+
     let state = { anggota: [], currentDetailId: null, searchTimer: null, toastTimer: null };
 
     document.addEventListener('DOMContentLoaded', initApp);
 
     function initApp(){ loadDashboard(); loadAnggota(); }
 
-    // --- FUNGSI KOMUNIKASI BACKEND (GANTI DENGAN LOGIKA FETCH/HTTP ANDA DI SINI) ---
-    function gs(fn, args){
-      return new Promise((resolve, reject) => {
-        // Jika Anda menggunakan fetch HTTP, ganti logika di dalam sini.
-        // Contoh dasar google.script.run (jika dijalankan di Apps Script):
-        if(typeof google !== 'undefined' && google.script && google.script.run){
-          google.script.run.withSuccessHandler(resolve).withFailureHandler(reject)[fn].apply(google.script.run, args || []);
-        } else {
-          // Fallback jika dibuka di GitHub Pages tanpa backend fetch yang dikonfigurasi
-          reject(new Error('Backend tidak terhubung. Pastikan URL API sudah dikonfigurasi.'));
+    // --- FUNGSI KOMUNIKASI BACKEND MENGGUNAKAN FETCH (HTTP) ---
+    async function gs(actionName, argsArray) {
+      try {
+        // Ambil payload dari array argumen (biasanya elemen pertama)
+        const payload = (argsArray && argsArray.length > 0) ? argsArray[0] : null;
+        
+        const response = await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+          body: JSON.stringify({
+            action: actionName,
+            payload: payload
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-      });
+
+        const result = await response.json();
+        return result;
+        
+      } catch (error) {
+        console.error("Fetch error:", error);
+        throw new Error("Gagal terhubung ke server. Pastikan URL Web App benar dan sudah di-deploy ulang.");
+      }
     }
-    // ---------------------------------------------------------------------------------
+    // ----------------------------------------------------------
 
     function openView(view){
       document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
@@ -511,15 +529,16 @@ const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxIzWEnFusf67ic
       const partners = d.partners || []; const children = d.children || []; const grandchildren = d.grandchildren || [];
       document.getElementById('treeArea').innerHTML = `
         <div class="tree-label">Orang Tua</div><div class="tree-level">${parents.length ? parents.map(treeCard).join('') : `<div class="empty">Orang tua belum diinput</div>`}</div>
-        <div class="tree-line"></div>
+        <div class="tree-line" style="width:2px;height:24px;background:#cbd5e1;margin:0 auto;"></div>
         <div class="tree-label">Anggota Utama & Pasangan</div><div class="tree-level">${treeCard(d.root, true)}${partners.map(treeCard).join('')}</div>
-        <div class="tree-line"></div>
+        <div class="tree-line" style="width:2px;height:24px;background:#cbd5e1;margin:0 auto;"></div>
         <div class="tree-label">Anak</div><div class="tree-level">${children.length ? children.map(treeCard).join('') : `<div class="empty">Anak belum diinput</div>`}</div>
-        <div class="tree-line"></div>
+        <div class="tree-line" style="width:2px;height:24px;background:#cbd5e1;margin:0 auto;"></div>
         <div class="tree-label">Cucu</div><div class="tree-level">${grandchildren.length ? grandchildren.map(x => treeCard(x.child)).join('') : `<div class="empty">Cucu belum diinput</div>`}</div>`;
     }
 
-    function treeCard(a, active){ return `<div class="tree-card" onclick="openDetail('${a.ID_ANGGOTA}')" style="${active ? 'border-color:#2563eb;box-shadow:0 12px 35px rgba(37,99,235,.18)' : ''}">${avatarHtml(a)}<div class="tree-name">${esc(a.NAMA)}</div><div class="tree-sub">${esc(a.TANGGAL_LAHIR || a.ID_ANGGOTA)}</div></div>`; }
+    function treeCard(a, active){ return `<div class="tree-card" onclick="openDetail('${a.ID_ANGGOTA}')" style="width:170px;background:white;border:1px solid var(--border);border-radius:18px;padding:12px;box-shadow:0 10px 28px rgba(15,23,42,.08);text-align:center;cursor:pointer;transition:.2s;${active ? 'border-color:#2563eb;box-shadow:0 12px 35px rgba(37,99,235,.18)' : ''}">${avatarHtml(a)}<div class="tree-name" style="font-weight:900;font-size:14px;">${esc(a.NAMA)}</div><div class="tree-sub" style="font-size:12px;color:var(--muted);margin-top:4px;">${esc(a.TANGGAL_LAHIR || a.ID_ANGGOTA)}</div></div>`; }
+    
     function avatarHtml(a){
       const name = a && a.NAMA ? a.NAMA : '?'; const initial = name.trim().slice(0,1).toUpperCase(); const foto = a && a.FOTO_URL ? String(a.FOTO_URL).trim() : '';
       if(foto){ return `<div class="avatar"><img src="${escAttr(foto)}" onerror="this.parentElement.textContent='${escAttr(initial)}'"></div>`; }

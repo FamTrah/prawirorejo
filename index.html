@@ -441,19 +441,38 @@
     }
 
     // --- API CALL HELPER (FETCH untuk GitHub Pages) ---
-    async function apiCall(action, payload = {}) {
-      try {
-        const response = await fetch(GAS_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action, payload, token: state.token })
-        });
-        return await response.json();
-      } catch (err) {
-        console.error("API Error:", err);
-        return { ok: false, message: "Koneksi gagal: " + err.message };
-      }
+  async function apiCall(action, payload = {}) {
+  try {
+    const requestData = { 
+      action: action, 
+      payload: payload, 
+      token: state.token 
+    };
+
+    const response = await fetch(GAS_URL, {
+      method: 'POST',
+      // PENTING: Gunakan 'text/plain' untuk menghindari CORS preflight (OPTIONS request)
+      // yang tidak didukung oleh Google Apps Script.
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify(requestData)
+    });
+
+    // Baca sebagai text dulu untuk menghindari error parsing jika GAS mengembalikan HTML error
+    const text = await response.text();
+    
+    try {
+      return JSON.parse(text);
+    } catch (e) {
+      console.error("Gagal parse JSON dari GAS. Respon mentah:", text);
+      return { ok: false, message: "Respon server tidak valid (bukan JSON)" };
     }
+  } catch (err) {
+    console.error("API Error:", err);
+    return { ok: false, message: "Koneksi gagal: " + err.message };
+  }
+}
 
     async function doLogin() {
       const username = document.getElementById('loginUser').value.trim();
